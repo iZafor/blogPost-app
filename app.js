@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const uri = "mongodb+srv://iZafor:xT489Fxi0YCuITGSfmct@cluster0.mg232wa.mongodb.net/blogpostDB"
 
 mongoose.connect(uri, (err) => {
-  if(!err){
+  if (!err) {
     console.log("Connected to the Database successfully.");
   }
 });
@@ -74,7 +74,7 @@ app.get(
 app.post(
   "/compose",
   (req, res) => {
-    const postTitle = _.capitalize(req.body.postTitle.trim());
+    const postTitle = _.capitalize(_.lowerCase(req.body.postTitle.toLowerCase()));
     const postContent = req.body.postBody.trim();
     if (postTitle.length > 0 && postContent.length > 0) {
       const newPost = new Post({
@@ -94,9 +94,9 @@ app.post(
 app.get(
   "/posts/:title",
   (req, res) => {
-    const requestedTitle = _.capitalize(req.params.title);
+    const requestedPostTitle = _.capitalize(_.lowerCase(req.params.title.toLowerCase()));
 
-    Post.findOne({ title: requestedTitle }, (err, post) => {
+    Post.findOne({ title: requestedPostTitle }, (err, post) => {
       if (err) {
         return console.log(err);
       }
