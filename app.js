@@ -3,9 +3,7 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const mongoose = require("mongoose");
 
-const uri = "mongodb+srv://iZafor:xT489Fxi0YCuITGSfmct@cluster0.mg232wa.mongodb.net/blogpostDB"
-
-mongoose.connect(uri, (err) => {
+mongoose.connect(process.env.DB_URI, (err) => {
   if (!err) {
     console.log("Connected to the Database successfully.");
   }
